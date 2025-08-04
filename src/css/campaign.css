@@ -1,0 +1,55 @@
+/* CSS Document */
+
+.campaign_mainpic{
+	padding-top:50px;
+	padding-bottom:65px;
+}
+.campaign_list{
+	max-width:1100px;
+	margin:auto;
+}
+.campaign_list,
+.campaign_list *{
+	background-position:center top;
+	background-repeat:no-repeat;
+	background-size:100% auto;
+}
+.campaign_list li{
+	/*
+	width:340px;
+	margin-left:40px;
+	*/
+	width:30.9090909%;
+	margin-left:3.636363636%;
+	float:left;
+	/*
+	border-radius: 0.25em;
+	-webkit-border-radius: 0.25em;
+	-moz-border-radius: 0.25em;
+	*/
+}
+.campaign_list li:nth-child(3n+1){margin-left:0;clear:both;}
+.campaign_list li:nth-child(n+4){margin-top:3.636363636%;}
+.campaign_list li a{display:block;}
+.campaign_list li img{width:100%;}
+.campaign_backbtn{
+	padding-top:125px;
+	padding-bottom:80px;
+}
+@media screen and (max-width: 799px) {
+	.campaign_mainpic{
+		padding-top:15px;
+		padding-bottom:45px;
+	}
+	.campaign_list li{
+		width:100%;
+		margin-left:0;
+		float:none;
+	}
+	.campaign_list li:nth-child(n+2){margin-top:15px;}
+	.campaign_backbtn{
+		padding-top:70px;
+		padding-bottom:70px;
+		/* padding-bottom:150px; */
+	}
+}

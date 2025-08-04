@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+/* Fade up */
+.faderight {
+	opacity: 0;
+	transform: translate(80px, 0);
+	transition: opacity 0.4s ease 0s, transform 0.4s ease 0s;
+	&.in {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+
+.faderight2 {
+	transform: translate(80px, 0);
+	transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+	&.in {
+		transform: translate(0, 0);
+	}
+}

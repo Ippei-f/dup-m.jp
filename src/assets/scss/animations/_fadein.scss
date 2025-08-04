@@ -1,0 +1,10 @@
+/* Fade in */
+.fadein {
+	opacity: 0;
+	transition: opacity 1s cubic-bezier(0.165, 0.84, 0.44, 1) 0s, transform 1s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+	transform: scale(0.9);
+	&.in {
+		opacity: 1;
+		transform: scale(1);
+	}
+}

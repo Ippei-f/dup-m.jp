@@ -1,0 +1,33 @@
+@charset "UTF-8";
+// ===========================
+// FORM, INPUT,
+// CHECKBOX, SELECT, ...
+// ===========================
+
+// Form, input, checkbox
+
+select {
+	background-color: #fff;
+	background-image: url(../images/form/arrow-down.svg);
+	background-repeat: no-repeat;
+	background-position: right 15px center;
+	background-size: 11px auto;
+	border: 2px solid $font-color;
+	padding: 18px 28px;
+	padding-right: 35px;
+	width: 340px;
+	border-radius: 100vh;
+
+	@include mq(sm2) {
+		width: 100%;
+		padding: 15px 28px;
+		padding-right: 35px;
+	}
+}
+
+.ui-datepicker {
+	select {
+		padding: 0;
+		background-size: 10px auto;
+	}
+}

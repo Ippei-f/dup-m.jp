@@ -1,0 +1,368 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* 
+-------------------------------------------------- */
+/* common parts
+-------------------------------------------------- */
+body {
+	font-family: 'Lato', "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", 'メイリオ' , Meiryo , Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif, sans-serif;
+}
+img {
+	max-width:100%;
+	height: auto;
+}
+
+@media (min-width: 768px) {
+/* tablet+PC用 */
+	.for-tb,
+	.for-tbpc { display:block;}
+	.for-sp {
+		display:none;
+	}
+	.inner {
+		margin:0 auto;
+	}
+}
+@media (min-width: 1024px) {
+/* PC用 */
+	.for-pc  { display:block;}
+	.main--content {
+		margin-top: 30px;
+		font-size:16px;
+		line-height: 1;
+	}
+	.inner {
+		max-width:1200px;
+		margin:0 auto;
+	}
+}
+@media (min-width: 1224px) {
+/* PC-wide用 */
+	.inner {
+		max-width:auto;
+		width:1200px;
+		margin:0 auto;
+	}
+}
+@media (min-width: 768px) and ( max-width: 1023px) {
+/* tablet用 */
+}
+@media (max-width: 767px) {
+/* SP用 */
+	.for-sp  { display:block;}
+	.for-tb,
+	.for-pc,
+	.for-tbpc { display:none;}
+	.inner {
+		margin:0 auto;
+	}
+	
+	#header .formbtn {
+		font-size:90%;
+	}
+	/*#header .formbtn a {
+		height:36px;
+	}*/
+	#footer .pc_vanish {
+		font-size:90%;
+	}
+}
+
+
+/* 
+-------------------------------------------------- */
+.p_title {
+    padding-top: 80px;
+    padding-bottom: 60px;
+    margin: auto;
+	text-align: center;
+    font-size:2rem;/*20*/
+	line-height:1.25;
+    font-weight: normal;
+	color: rgb(0, 0, 0);
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "FOT-筑紫明朝 Pr6N R", "TsukuMinPr6N-R", "Hiragino Mincho ProN", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
+}
+.gw--lead {
+    margin:0 auto 4rem;
+	text-align: center;
+	font-size:1.25rem;
+	line-height:2;
+	font-family: "游明朝", "Yu Mincho", "YuMincho", "FOT-筑紫明朝 Pr6N R", "TsukuMinPr6N-R", "Hiragino Mincho ProN", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
+}
+h3.h301 {
+	margin-bottom:1.875rem;
+	font-size:2rem;
+    font-weight: bolder;
+	text-align: center;
+}
+
+
+h4.h401 {
+	padding:0.85rem 1rem 0.75rem;
+	color: #fff;
+	font-weight: normal;
+	font-size:1.1875rem;/*19*/
+	text-align:center;
+	background:#004021;
+}
+.ul--gw--01 li {
+	background:#f0eee0;
+}
+.li--inner {
+	padding:22px 25px 22px;
+}
+.ul--gw--01 li .photo {
+	margin-bottom:30px;
+}
+.ul--gw--01 li a {
+	transition:.75s;
+}
+.ul--gw--01 li a:hover img {
+	filter:alpha(opacity=65);
+    -moz-opacity: 0.65;
+    opacity: 0.65;
+	transition:.75s;
+}
+
+.price--area {
+	display:flex;
+	align-items:center;
+	margin-bottom: 1.2rem;
+}
+.price--area .class {
+	display:inline-block;
+	width:50px;
+	padding:0.1rem 0;
+	margin-right:1rem;
+	text-align:center;
+	color: #fff;
+	background:#004021;
+}
+.price--area a {
+	display:block;
+	width:100%;
+	height:100%;
+}
+
+.price--area .price {
+	font-size:1.625rem;/*26*/
+	font-weight:bolder;
+}
+.price--area .price small {
+	font-size:1rem;
+}
+p.comment {
+	text-align:center;
+	font-size:15px;
+	font-weight:500;
+}
+p.att {
+	font-size:0.75rem;
+	font-family: "游明朝", "Yu Mincho", "YuMincho", "FOT-筑紫明朝 Pr6N R", "TsukuMinPr6N-R", "Hiragino Mincho ProN", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
+}
+
+.btn--topPage {
+	max-width:340px;
+	border:1px solid #004021;
+	border-radius: 30px;
+	margin:0 auto 60px;
+}
+.btn--topPage p {
+	margin:0 auto;
+}
+.btn--topPage a {
+	display:block;
+	padding:0.85rem 0 0.75rem;
+	border-radius: 30px;
+	text-align:center;
+	font-size:1.5rem;/*24*/
+	text-decoration: none;
+	color: #004021;
+	transition:.3s;
+}
+.btn--topPage a:hover {
+	color: #fff;
+	background: #004021;
+	transition:.3s;
+}
+@media (min-width: 641px) {
+/* tablet+PC用 */
+	.ul--gw--01 {
+		display:flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		max-width:1100px;
+		margin:0 auto;
+	}
+	.ul--gw--01 li {
+		width:48.5%;
+		margin:0 3% 35px 0;
+	}
+	.ul--gw--01 li:nth-child(2n) {
+		margin-right:0;
+	}
+	
+	p.att {
+		max-width:1100px;
+		margin:0 auto 55px;
+	}
+}
+@media (min-width: 1024px) {
+/* PC用 */
+	.p_title {
+		
+	}
+	.gw--lead {
+		font-size:1rem;
+	}
+	.ul--gw--01 li {
+		width:31%;
+		margin:0 3.5% 35px 0;
+	}
+	.ul--gw--01 li:nth-child(2n) {
+		margin-right:3.5%;
+	}
+	.ul--gw--01 li:nth-child(3n) {
+		margin-right:0;
+	}
+}
+@media (min-width: 1224px) {
+/* PC-wide用 */
+}
+@media (min-width: 641px) and ( max-width: 1023px) {
+/* tablet用 */
+}
+@media (max-width: 640px) {
+/* SP用 */
+	.p_title {
+		padding:40px 0 30px;
+		font-size:1.875rem;
+		line-height:1.25;
+	}
+	.gw--lead {
+		font-size:1.25rem;
+		line-height:1.75;
+		text-align: left;
+	}
+	h3.h301 {
+		font-size:1.5rem;
+	}
+	h4.h401 {
+		line-height:1.5;
+		font-size:1.375rem;
+	}
+	.ul--gw--01 li {
+		margin-bottom:35px;
+	}
+	
+	.ul--gw--01 li .photo {
+		margin-bottom:25px;
+	}
+	.price--area {
+		justify-content:center;
+	}
+	
+	.price--area .price {
+		font-size:2rem;/*26*/
+		font-weight:bolder;
+	}
+	.price--area .price small {
+		font-size:1.5rem;
+	}
+	
+	p.comment {
+		font-size:24px;
+	}
+	p.att {
+		margin-bottom: 30px;
+		font-size:20px;
+		line-height:1.25rem;
+	}
+	.btn--topPage {
+		max-width: 80%;
+		border-radius: 50px;
+	}
+	.btn--topPage a {
+		line-height:1.25;
+		width:100%;
+		margin:0 auto;
+		border-radius: 50px;
+	}
+}
+
+
+/* 
+-------------------------------------------------- */
+@media (min-width: 768px) {
+/* tablet+PC用 */
+}
+@media (min-width: 1024px) {
+/* PC用 */
+}
+@media (min-width: 1224px) {
+/* PC-wide用 */
+}
+@media (min-width: 768px) and ( max-width: 1023px) {
+/* tablet用 */
+}
+@media (max-width: 767px) {
+/* SP用 */
+}
+
+
+/* 
+-------------------------------------------------- */
+@media (min-width: 768px) {
+/* tablet+PC用 */
+}
+@media (min-width: 1024px) {
+/* PC用 */
+}
+@media (min-width: 1224px) {
+/* PC-wide用 */
+}
+@media (min-width: 768px) and ( max-width: 1023px) {
+/* tablet用 */
+}
+@media (max-width: 767px) {
+/* SP用 */
+}
+
+
+/* 
+-------------------------------------------------- */
+@media (min-width: 768px) {
+/* tablet+PC用 */
+}
+@media (min-width: 1024px) {
+/* PC用 */
+}
+@media (min-width: 1224px) {
+/* PC-wide用 */
+}
+@media (min-width: 768px) and ( max-width: 1023px) {
+/* tablet用 */
+}
+@media (max-width: 767px) {
+/* SP用 */
+}
+
+
+/* 
+-------------------------------------------------- */
+@media (min-width: 768px) {
+/* tablet+PC用 */
+}
+@media (min-width: 1024px) {
+/* PC用 */
+}
+@media (min-width: 1224px) {
+/* PC-wide用 */
+}
+@media (min-width: 768px) and ( max-width: 1023px) {
+/* tablet用 */
+}
+@media (max-width: 767px) {
+/* SP用 */
+}

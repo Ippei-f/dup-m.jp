@@ -1,0 +1,129 @@
+/* CSS Document */
+
+.case_title{
+	border-top:solid 1px rgba(0,0,0,0.5);
+	margin-bottom:70px;
+	font-size:100%;
+}
+.case_title table{
+	width:100%;
+	background-color:#F6F7F7;
+}
+.case_title table th,
+.case_title table td{
+	padding:0.5em 0;
+	vertical-align:middle;
+}
+.case_title table th{
+	width:6em;
+}
+.case_title table th .border{
+	text-align:center;
+	border-right:solid 1px rgba(0,0,0,0.25);
+	font-size:150%;
+	padding:0.25em 0;
+}
+.case_title table th .border .fontP050{
+	padding-bottom:0.25em;
+}
+.case_title table td{
+	padding-left:1em;
+	text-align:left;
+	font-size:150%;
+	line-height:100%;
+	font-weight:normal;
+}
+@media screen and (max-width: 799px) {
+	.case_title{
+		font-size:90%;
+		margin-bottom:35px;
+	}
+	.case_title table th{
+		width:4em;
+	}
+	.case_title table td{
+		line-height:125%;
+	}
+}
+
+.sec1{
+	margin-bottom:65px;
+}
+@media screen and (min-width: 800px) {
+	.sec1 .mainpic{
+		width:50%;
+		margin-left:0;
+	}
+	.sec1 .text{
+		position:absolute;
+		width:46%;
+		height:6.5em;
+		top:0;
+		bottom:0;
+		right:0;
+		margin:auto;
+	}
+}
+@media screen and (max-width: 799px) {
+	.sec1 .text{
+		margin-top:1em;
+	}
+}
+
+.sec2{}
+.sec2 li{line-height:200%;}
+.sec2 li:nth-child(n+2){margin-top:60px;}
+.sec2 h4{
+	color:#004021;
+	font-size:120%;
+	line-height:100%;
+	margin-bottom:1em;
+}
+.sec2 li .floatL_pc,
+.sec2 li .floatR_pc{
+	width:100%;
+}
+.sec2 li .floatL_pc.nomgn,
+.sec2 li .floatR_pc.nomgn{
+	margin-top: -1em;
+	font-size: 90%;
+}
+@media screen and (min-width: 800px) {
+	.sec2 li .floatL_pc{
+		width:100%;
+		max-width:47%;
+		margin-right:3%;
+		margin-bottom:1em;
+		margin-top: 0.5em;
+	}
+	.sec2 li .floatR_pc{
+		width:100%;
+		max-width:47%;
+		margin-left:3%;
+		margin-bottom:1em;
+		margin-top: 0.5em;
+		text-align:right;
+	}
+	.sec2 li.ratio35 .floatL_pc,
+	.sec2 li.ratio35 .floatR_pc{
+		max-width:35%;
+	}
+	.sec2 li.ratio61 .floatL_pc,
+	.sec2 li.ratio61 .floatR_pc{
+		max-width:61.6%;
+	}
+}
+@media screen and (max-width: 799px) {
+	.sec2 li .floatL_pc,
+	.sec2 li .floatR_pc,
+	.sec2 li .pc_vanish{
+		margin-bottom:1em;
+	}
+}
+
+.backbtn{
+	display:inline-block;
+	line-height:100%;
+	padding:1.5em 2.5em;
+	background-color:#F6F7F7;
+}

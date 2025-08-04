@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+/* Fade up */
+.fadeup {
+	opacity: 0;
+	transform: translate(0, 30px);
+	transition: opacity 1s ease 0s, transform 1s ease 0s;
+	&.in {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+
+.fadeup2 {
+	transform: translate(0, 80px);
+	transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+	&.in {
+		transform: translate(0, 0);
+	}
+}
+
+.eachCharaFU {
+	overflow: hidden;
+	.chara {
+		opacity: 0;
+		display: inline-block;
+		animation: eachCharaFU 0.8s forwards;
+	}
+}
+
+@keyframes eachCharaFU {
+	0% {
+		opacity: 0;
+		transform: translateY(100%);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

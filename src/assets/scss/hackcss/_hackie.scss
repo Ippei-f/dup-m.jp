@@ -1,0 +1,12 @@
+// Hack IE 10, 11
+@media all and (-ms-high-contrast:none) {
+	// .class {
+	// }
+}
+
+
+// Hack Firefox
+@-moz-document url-prefix() { 
+  // .class {
+	// }
+}

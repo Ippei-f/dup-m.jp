@@ -1,0 +1,228 @@
+@charset "UTF-8";
+/* -------------------
+  TABS
+--------------------*/
+
+.tabs {
+  &-navWrapper {
+    @include mq() {
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+  }
+
+  &-nav {
+    display: flex;
+    width: 100%;
+  }
+
+  &-item {
+    width: 220px;
+    max-width: 100%;
+    font-size: fs(18);
+    color: #818181;
+    background-color: #EBEBEB;
+    margin-right: 8px;
+    padding: 17px 15px;
+    cursor: pointer;
+    text-align: center;
+    transition: all .3s; 
+    @include mq(sm2) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 33.33%;
+      margin-right: 0;
+      font-size: fs(14);
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.active,
+    &:hover {
+      color: #5DC1CF;
+      background-color: #fff;
+    }
+    &.type2 {
+      @include mq(sm2) {
+        width: 50%;
+      }
+    }
+    &.type3 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 126px;
+      max-width: 20%;
+      font-size: fs(14);
+      font-weight: bold;
+      padding: 17px 3px;
+      margin-right: 0;
+      @include mq(sm2) {
+        max-width: 100%;
+        width: 100%;
+        font-size: fs(12);
+      }
+    }
+  }
+
+  &-cnt {
+    background-color: #fff;
+    padding: 30px 20px 0;
+    &.type2 {
+      padding-bottom: 40px;
+    }
+    &.type3 {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    &.type4 {
+      @include mq(sm2) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+
+.tabs2 {
+  &-navWrapper {
+    @include mq() {
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+  }
+
+  &-nav {
+    // display: flex;
+    // width: 100%;
+    margin: 0 auto;
+    padding: 0 2vw;
+  }
+
+  &-item {
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // height: 170px;
+    padding: 20px 15px;
+    color: #474F5F;
+    font-size: fs(24);
+    font-weight: bold;
+    background: none;
+    cursor: pointer;
+    text-align: center;
+    transition: all .3s;
+    // background: url(../images/top/bg-tabItem-blue.svg) no-repeat;
+    // background-size: 100% 100%;
+
+    @include mq() {
+      font-size: fs(20);
+    }
+
+    span {
+      padding-top: 42px;
+      background: url(../images/common/icon-fac-black.svg) top center no-repeat;
+    }
+    @include mq(pc) {
+      cursor: auto;
+    }
+  }
+
+  &-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 170px;
+    background: url(../images/top/bg-tabItem-blue.svg) no-repeat;
+    background-size: 100% 100%;
+    margin: 0 0 7px;
+
+    &-type2 {
+      background-image: url(../images/top/bg-tabItem-pink.svg);
+
+      span {
+        background: url(../images/common/icon-doc-black.svg) top center no-repeat;
+      }
+    }
+
+    @include mq() {
+      height: 39vw;
+    }
+  }
+
+  &-cnt {
+    display: flex;
+    background-color: #fff;
+    margin: 7px 0 0;
+  }
+
+  &-panel {
+    width: 50%;
+    padding: 0 15px;
+  }
+
+  &-menu {
+    .thumb {
+      position: relative;
+      background: url(../images/top/bg-card-blue.png);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-position: center center;
+      height: 139px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0 20px;
+
+      @include mq(sm2) {
+        height: 29vw;
+      }
+
+      figcaption {
+        font-size: 0.9375rem;
+        font-weight: 700;
+        position: absolute;
+        bottom: 15px;
+        display: block;
+        text-align: center;
+        width: 100%;
+
+        @include mq() {
+          font-size: fs(13);
+          bottom: 12px;
+        }
+      }
+
+      img {
+        @include mq() {
+          max-width: 65%;
+          max-height: 65%;
+        }
+      }
+    }
+
+    &-type2 {
+      .thumb {
+        background-image: url(../images/top/bg-card-green.png);
+      }
+    }
+
+    @include mq() {
+      display: flex;
+      flex-flow: row wrap;
+    }
+
+    li {
+      width: 32%;
+      margin: 0 calc(4% / 2) 10px 0;
+
+      &:nth-of-type(3n) {
+        margin: 0 0 10px 0;
+      }
+    }
+  }
+}

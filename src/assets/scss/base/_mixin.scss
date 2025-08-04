@@ -1,0 +1,73 @@
+@charset "UTF-8";
+/* -------------------
+  MIXIN
+--------------------*/
+
+// =========================================
+// px to vw
+// =========================================
+@function vw($size) {
+	@return $size / 1366 * 100vw;
+}
+
+@function vw2($size) {
+	@return $size / 390 * 100vw;
+}
+
+/* 
+.example {
+  font-size: vw(12);
+}
+*/
+
+// =========================================
+// Font size for px to rem
+// =========================================
+@function fs($size) {
+	@return $size / 16 * 1rem;
+}
+/* 
+.example {
+  font-size: fs(12); <- 12px quite
+}
+*/
+
+// =========================================
+// Media queries
+// =========================================
+$breakpoints: (
+	"sm3": "screen and (max-width: 350px)",
+	// <- Small SmartPhone (iPhone5,..)
+	"sm2": "screen and (max-width: 767px)",
+	// <- Big SmartPhone (iPhoneX,..)
+	"tb2": "screen and (min-width: 768px) and (max-width: 949px)",
+	// <- Table only (iPad) and SmartPhone Landscape
+	"tb": "screen and (min-width: 950px) and (max-width: 1050px)",
+	// <- Big Table (iPad Pro,..) and iPad
+	"tb3": "screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) ",
+	// <- iPad ratio
+	"sm": "screen and (max-width: 1050px)",
+	// <- Default (SmartPhone and Tablet)
+	"st": "screen and (min-width: 768px) and (max-width: 1180px)",
+	// <- Default (SmartPhone and Tablet)
+	"pc": "screen and (min-width: 1051px)",
+	// <- PC only
+	"pc2": "screen and (min-width: 1200px)",
+	// <- Big PC only
+	"ls": "screen and (max-width: 767px) and (orientation: landscape)",
+	// <- LandScape
+	"sm4": "screen and (max-width: 767px) and (orientation: portrait)",
+) !default;
+
+@mixin mq($breakpoint: sm) {
+	@media #{map-get($breakpoints, $breakpoint)} {
+		@content;
+	}
+}
+/* 
+.example {
+  @include mq() {
+    width: 100%;
+  }
+}
+*/

@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+/* Fade up */
+
+//CSS
+.matrix {
+	&-inner {
+		display: block;
+		overflow: hidden;
+		opacity: 0;
+
+		&-2 {
+			display: block;
+			opacity: 0;
+			transform: matrix(1, 0, 0, 1, 0, 100);
+			transition: 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+		}
+	}
+	&.in {
+		.matrix-inner {
+			opacity: 1;
+
+			&-2 {
+				opacity: 1;
+				transform: matrix(1, 0, 0, 1, 0, 0);
+			}
+		}
+	}
+}

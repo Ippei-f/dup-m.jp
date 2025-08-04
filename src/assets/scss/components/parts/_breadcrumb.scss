@@ -1,0 +1,65 @@
+@charset "UTF-8";
+/* -------------------
+	BREADCRUMB
+--------------------*/
+.breadcrumb {
+  margin-top: 22px;
+  padding: 0 30px;
+  @include mq() {
+    white-space: nowrap;
+    overflow-x: auto;
+    margin-top: 5px;
+    margin-bottom: 12px;
+  }
+  @include mq() {
+    padding: 0 8px;
+  }
+  &-wrapper {
+    padding-top: 15px;
+    @include mq() {
+      padding: 0 0 5px 0; 
+    }
+  }
+  ul {
+    li {
+      display: inline-block;
+      font-size: fs(12);
+      position: relative;
+      padding-right: 20px;
+      color: #000;
+      a {
+        display: inline-block;
+        color: #68A0FA;
+        transition: all .3s;
+        &:hover {
+          opacity: .8;
+        }
+      }
+      &:last-child {
+        padding-right: 0;
+        &:before {
+          display: none;
+        }
+      }
+      &:before {
+        display: inline-block;
+        position: absolute;
+        top: 7px;
+        right: 4px;
+        width: 4px;
+        height: 5px;
+        background: url(../images/common/icon-breadcrumb.svg) center center / 100% 100% no-repeat;
+        content: "";
+      }
+      @include mq() {
+        margin-bottom: 8px;
+      }
+      a {
+        transition: all .3s;
+        &:hover {
+          opacity: .7;
+        }
+      }
+    }
+  }
+}

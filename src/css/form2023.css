@@ -1,0 +1,481 @@
+/* CSS Document */
+
+/*
+		DUPと東新住建の家以降のCSSに食い違いがあるので、
+		東新住建の家以降の環境になるよう調整
+*/
+
+input[type="reset"],
+input[type="submit"]{cursor: pointer;}
+.bg_FFF_gray{background-color: #f0f2f5;}
+
+.Wmax800.mgnLR50.mgnLR20_sp{
+	max-width: none!important;
+	margin-left: 0!important;
+	margin-right: 0!important;
+}
+.content_box{padding: 0 50px;}
+@media screen and (max-width: 799px) {
+	.content_box{padding: 0 20px;}
+}
+
+.contact_step{
+	background-position:center center;
+	background-repeat:no-repeat;
+	background-size: auto 100%;
+}
+.contact_step.step1{
+	background-image: url(../images/content/contact/step/step1.svg)
+									, url(../images/content/contact/step/step2-off.svg)
+									, url(../images/content/contact/step/step3-off.svg)
+}
+.contact_step.step2{
+	background-image: url(../images/content/contact/step/step1-off.svg)
+									, url(../images/content/contact/step/step2.svg)
+									, url(../images/content/contact/step/step3-off.svg)
+}
+.contact_step.step3{
+	background-image: url(../images/content/contact/step/step1-off.svg)
+									, url(../images/content/contact/step/step2-off.svg)
+									, url(../images/content/contact/step/step3.svg)
+}
+@media screen and (max-width: 999px) {
+	.contact_step.step1{
+		background-image: url(../images/content/contact/step/step1-sp.svg)
+										, url(../images/content/contact/step/step2-off-sp.svg)
+										, url(../images/content/contact/step/step3-off-sp.svg)
+	}
+	.contact_step.step2{
+		background-image: url(../images/content/contact/step/step1-off-sp.svg)
+										, url(../images/content/contact/step/step2-sp.svg)
+										, url(../images/content/contact/step/step3-off-sp.svg)
+	}
+	.contact_step.step3{
+		background-image: url(../images/content/contact/step/step1-off-sp.svg)
+										, url(../images/content/contact/step/step2-off-sp.svg)
+										, url(../images/content/contact/step/step3-sp.svg)
+	}
+}
+
+.contact_caution{
+	font-size: 75%;
+	padding-top: 3em;
+	margin-bottom: 2em;
+	text-align: left;
+}
+
+.contact_box{
+	width:800px;
+	max-width: 100%;
+	margin: auto;
+	text-align: left;
+}
+.contact_box hr{
+	border-top:dotted 1px #C8C8C8;
+	margin: auto;
+	margin-top: 1.5em;
+}
+.contact_box .contact_title{
+	padding-top: 1.5em;
+	padding-bottom: 0.5em;
+}
+.contact_box .contact_inputarea{}
+form.conf .contact_box .contact_inputarea{line-height: 150%;}
+.contact_box .contact_inputarea .namebox{
+	display: inline-block;
+	width:auto;
+}
+.contact_box .contact_inputarea .namebox td{padding-left:0.25em;}
+@media screen and (min-width: 1000px) {
+	.contact_box .contact_inputarea .namebox:nth-of-type(n+2){
+		margin-left: 1em;
+	}
+}
+@media screen and (max-width: 999px) {
+	.contact_box .contact_inputarea .namebox{display:block;}	
+	.contact_box .contact_inputarea .namebox:nth-of-type(n+2){margin-top: 0.5em;}
+}
+.contact_box .contact_inputarea .numbox{
+	display: inline-block;
+	width:auto;
+}
+.contact_box .contact_inputarea .numbox.pos input,
+.contact_box .contact_inputarea .numbox.tel input{
+	width:5em;
+}
+.contact_box .contact_inputarea .numbox .pad{
+	min-width: 2em;
+	text-align: center;
+	display: table-cell;
+	padding-right: 0;
+}
+.contact_box .contact_inputarea .pos_addr_btn{
+	display: inline-block;
+	vertical-align: top;
+	font-size: 80%;
+	line-height: 100%;
+	padding: 0.875em;
+	margin-left: 1em;
+	background-color: #004021;
+	color:#FFF;
+	
+}
+.contact_box .contact_inputarea .checkbox{
+	display: inline-block;
+	margin-right:1em;
+	width:auto;
+}
+.contact_box .contact_inputarea .checkbox input[type=text]{
+	margin-left: 0.5em;
+	max-width: 11em;
+}
+.contact_box .contact_inputarea .selectbox{
+	display: inline-block;
+	margin-right:1em;
+	width:auto;
+}
+.contact_box .contact_inputarea .selectbox select{
+	margin-right: 0.25em;
+}
+.contact_box .contact_I_caution{
+	margin-top: 0.75em;
+	font-size: 75%;
+	line-height: 175%;
+}
+.contact_box .contact_inputarea .conf{margin-right: 0.5em;}
+
+.contact_box .anke_kotaeru{
+	background-color: #738DA0;
+	color:#FFF;
+	padding: 1em;
+	margin: 1.5em auto 0;
+}
+
+.contact_box h3.anke_jizen{
+	background-color: #738DA0;
+	color:#FFF;
+	padding: 0.5em 0;
+	text-align: center;
+	font-size: 125%;
+	line-height: 100%;
+	border-radius: 3em;
+	-webkit-border-radius: 3em;
+	-moz-border-radius: 3em;
+}
+.contact_box .anke_jizen_list{
+	padding-top: 0.5em;
+}
+.contact_box .anke_jizen_list .checkbox{
+	min-width: 28%;
+	margin-bottom: 1em;
+}
+.contact_box .privacy_box{
+	border: solid 1px #000;
+	padding: 1em;
+	margin-top: 1.5em;
+}
+.contact_box .privacy_box .title{
+	width: 10.375em;
+	max-width: 100%;
+	margin-right: auto;
+}
+.contact_box .privacy_box hr{
+	border-top:solid 1px #000;
+	margin-top: 0.75em;
+}
+.contact_box .privacy_box .text{
+	margin-top: 0.75em;
+	overflow: auto;
+	height: 10.25em;
+	font-size: 90%;
+	line-height: 175%;
+	padding-right: 1em;
+}
+.contact_box .kibouarea_box{
+	padding-top: 1em;
+}
+.contact_box .kibouarea_box .kibouarea_title{
+	font-weight: bold;
+	font-size: 110%;
+	line-height: 100%;
+	padding-bottom: 0.25em;
+}
+.contact_box .kibouarea_box .kibouarea_title:nth-of-type(n+2){
+	padding-top: 1.5em;
+}
+.contact_box .kibouarea_box .checkbox{
+	margin-top: 0.5em;
+	width: 9em;
+	margin-right: 0;
+}
+@media screen and (min-width: 1000px) {
+	.contact_box .kibouarea_box{
+		padding-left: 15%;
+		padding-right: 5%;
+	}
+}
+@media screen and (max-width: 999px) {
+	.contact_box .kibouarea_box .checkbox{
+		width: 50%;
+	}
+}
+
+.contact_box table{}
+.contact_box table tr > *{
+	text-align: left;
+	vertical-align: middle;
+}
+.contact_box table th{
+	background-color: #EBEBEB;
+	color:rgba(0,0,0,0.5);
+	min-width: 3em;
+	font-size: 75%;
+	line-height: 100%;
+	text-align: center;
+}
+.contact_box input,
+.contact_box select{
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 100%;
+	line-height: 100%;
+	background-color: #EBEBEB;
+	border: none;
+}
+.contact_box input[type=text],
+.contact_box select{
+	padding: 0.5em;
+}
+.contact_box input[type=checkbox],
+.contact_box input[type=radio]{
+	width:1em;
+	height:1em;
+	margin-right: 0.5em;
+	vertical-align: -0.125em;
+}
+.contact_box input[type=radio]{
+	margin-bottom: 0.5em;
+}
+.contact_box textarea{
+	display: block;
+	background-color: #EBEBEB;
+	border: none;
+	width: 100%;
+	min-height: 10em;
+}
+.bg_FFF_gray .contact_box input,
+.bg_FFF_gray .contact_box select,
+.bg_FFF_gray .contact_box textarea{
+	background-color: #FFF;
+}
+
+.contact_box .submit_btn{
+	text-align: center;
+	margin-top: 2.5em;
+}
+.contact_box .submit_btn > *{
+	display: inline-block;
+	margin: 0 0.5em;
+	min-width: 9em;
+	padding: 0.75em 0;
+	line-height: 100%;
+	cursor: pointer;
+}
+.contact_box .submit_btn > *[name=sm_conf]{
+	background-color: #000;
+	color:#FFF;
+}
+.contact_box .submit_btn > *[name=sm_send]{
+	background-color: #DE001E;
+	color:#FFF;
+}
+.contact_box .submit_btn > *[type=reset]{
+	background-color: #B2B2B3;
+	color:#FFF;
+}
+
+.form_family tr > *{
+	text-align: left;
+	vertical-align: top;
+	padding-top: 0.75em;
+}
+@media screen and (min-width: 1000px) {
+	.form_family tr > *{width:33%;}
+}
+.form_family tr > * input{
+	width:7em!important;
+	text-align: right;
+}
+.form_family tr > * > span{
+	display: inline-block;
+	width:auto;
+}
+.form_family tr > * > span:nth-of-type(1){
+	min-width:5em;
+	text-align: right;
+}
+.form_family tr > * > span:nth-of-type(3){
+	margin-left:0.5em;
+	text-align: right;
+}
+
+.err_block{position:relative;}
+.err_block input[type="text"]:not(.W100per),
+.box_family .err_block{width:auto;}
+.formError{
+	display:block;
+	position:absolute;
+	bottom:-webkit-calc(100% + 0.5em);
+	bottom:calc(100% + 0.5em);
+	line-height:100%;
+	left:0;
+	background-color:#F00;
+	color:#FFF;
+	padding-left:0.5em;
+	padding-right:0.5em;
+	border-radius: 1em;
+	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+	box-shadow: 1px 1px 0px 0px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 1px 1px 0px 0px rgba(0,0,0,0.5);
+	-moz-box-shadow: 1px 1px 0px 0px rgba(0,0,0,0.5);
+	z-index:3;
+	cursor:pointer;
+	font-size:90%;
+	padding-top:0.2em;
+	padding-bottom:0.2em;
+}
+/*
+@media screen and (max-width: 999px) {
+	.formError{font-size:75%;}
+}
+.required_na .formError{width: 7.5em;}
+.required_po .formError{width: 7.5em;}
+.required_ad .formError{width: 7.5em;}
+.required_em .formError{width:17.5em;}
+.err_block.type_ph .formError{width:15.5em;}
+*/
+.err_block.checkbox .formError{width:21.5em;left: -0.85em;}
+.formError .formErrorContent{line-height:150%;}
+.formError .formErrorArrow {
+	display:block;
+	width:0;
+	border-top:solid 0.5em #FF0000;
+	border-left:solid 0.5em transparent;
+	border-right:solid 0.5em transparent;
+	border-bottom:none;
+	position:absolute;
+	top:100%;
+	left:1.25em;
+	z-index:2;
+}
+
+/* ↓20200709追加 */
+.acobox{display:none;}
+
+/* ↓20230224追加 */
+.contact_inputarea_ver2023{display: flex;}
+.contact_inputarea_ver2023.wrap{
+	flex-wrap: wrap;
+	margin-right: -1em;
+	margin-bottom: -1em;
+}
+.contact_inputarea_ver2023 > .checkbox{
+	display: flex;
+	align-items: center;
+	margin-right: 1em;
+	margin-bottom: 1em;
+}
+.contact_box .contact_inputarea_ver2023 input[type=radio]{
+	vertical-align: 0;
+	margin-bottom: 0.375em;
+}
+.contact_box .contact_inputarea_ver2023 input[type=text]{
+	margin-left: 0.5em;
+}
+.contact_inputarea_ver2023.colorbox{
+	justify-content: space-between;
+	margin-top: 0.5em;
+}
+.contact_inputarea_ver2023.colorbox > *{
+	background-color: #f5fffa;
+	border:solid 2px #00994f;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	flex-grow: 1;
+	width: 30%;
+	padding: 1.25em;
+	font-size: 125%;
+	font-weight: bold;
+	line-height: 100%;
+	margin-right: 0;
+}
+.contact_inputarea_ver2023.colorbox > *:nth-child(n+2){margin-left: 3%;}
+
+.colorbox_anke{
+	background-color: #f5fffa;
+	border:solid 2px #00994f;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	margin-top: 1.5em;
+	padding: 1.25em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.colorbox_anke h3{
+	color:#004021;
+	font-size: 150%;
+	line-height: 125%;
+}
+.colorbox_anke hr{
+	border-top: solid 1px #004021;
+	width: 100%;
+	margin: 1em 0 1.25em;
+}
+.colorbox_anke hr + div{
+	line-height: 175%;
+}
+.colorbox_anke hr + div b.o{
+	font-size: 125%;
+	color:#004021;
+}
+.colorbox_anke hr + div + div{
+	font-size: 75%;
+	margin-top: 1em;
+}
+.colorbox_anke .anke_check{
+	background-color: #004021;
+	color:#FFF;
+	font-weight: bold;
+	margin-top: 1em;
+	padding: 0.5em 1em;
+}
+@media screen and (max-width: 999px) {
+	.contact_inputarea_ver2023.colorbox{
+		flex-direction: column;
+		align-items: center;
+	}
+	.contact_inputarea_ver2023.colorbox > *{
+		width:70%;
+		min-width: 13em;
+		margin-right: 0;
+	}
+	.contact_inputarea_ver2023.colorbox > *:nth-child(n+2){
+		margin-left: 0;
+	}
+}
+
+/* ↓20230607追加 */
+.contact_inputarea.box_family{}
+@media screen and (max-width: 799px) {
+	.contact_inputarea.box_family .normalbox span{width: auto;}
+	.contact_inputarea.box_family .sp_tblbreak_limited,
+	.contact_inputarea.box_family .sp_tblbreak_limited > tbody,
+	.contact_inputarea.box_family .sp_tblbreak_limited > tbody > tr,
+	.contact_inputarea.box_family .sp_tblbreak_limited > tbody > tr > td{
+		display: block;
+	}
+}

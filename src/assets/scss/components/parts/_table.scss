@@ -1,0 +1,123 @@
+@charset "UTF-8";
+// ===========================
+// TABLE
+// ===========================
+
+.table2 {
+  @include mq(sm2) {
+    overflow-x: auto;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+  }
+
+  th {
+    background-color: #F2F5F7;
+    border: 1px solid #E6EEF2;
+    box-sizing: border-box;
+    font-weight: 700;
+    padding: 20px 15px;
+    width: 185px;
+  }
+
+  td {
+    border: 1px solid #E6EEF2;
+    box-sizing: border-box;
+    padding: 20px 15px;
+	}
+
+  &.type2 {
+    table {
+      @include mq(sm2) {
+        width: 220vw;
+      }
+    }
+  }
+  
+}
+
+// custom bootstrap
+.table {
+  font-size: fs(12);
+  color: #474F5F;
+  &Wrap2 {
+    max-height: 400px;
+    overflow-y: auto;
+    @include mq(sm2) {
+      max-height: 200px;
+    }
+  }
+  &Wrap {
+    @include mq(sm2) {
+      width: 220vw;
+      overflow: auto;
+    }
+  }
+  thead {
+    background-color: #F4F4F4;
+    font-weight: bold;
+    th {
+      text-align: center;
+    }
+  }
+  tbody {
+    tr {
+      border-bottom: solid 1px #EBEBEB;
+    }
+  }
+  th {
+    &.t_date {
+      width: 130px;
+      @include mq(sm2) {
+        width: 155px;
+      }
+    }
+    &.t_name {
+      @include mq(sm2) {
+        width: 130px;
+      }
+    }
+    &.t_review {
+      width: 95px;
+      @include mq(sm2) {
+        width: 100px;
+      }
+    }
+    &.t_points {
+      width: 80px;
+    }
+    &.t_detail {
+      width: 60px;
+    }
+    &.t_cbox {
+      width: 45px;
+      padding-right: 0;
+      @include mq(sm2) {
+        width: 35px;
+      }
+    }
+    &.t_think {
+      width: 180px;
+      padding-right: 0;
+      @include mq(sm2) {
+        width: auto;
+      }
+    }
+  }
+  td {
+    vertical-align: middle;
+    &.t_cbox {
+      padding-right: 0;
+    }
+  }
+}
+
+.table>:not(caption)>*>* {
+  padding: 10px 15px;
+  @include mq(sm2) {
+    padding: 10px;
+  }
+}
