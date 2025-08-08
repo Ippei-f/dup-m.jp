@@ -491,3 +491,109 @@
 		width: 100%;
 	}
 }
+
+/* 追加2025.08.08 */
+
+.index-kv {
+	position: relative;
+	height: 100vh;
+}
+@media screen and (max-width: 799px) {
+	.index-kv {
+		height: auto;
+	}
+}
+
+.index-kv__list {
+	height: 100%;
+}
+.index-kv .img-1 img.sp-only,
+.index-kv .img-2 img.sp-only {
+	display: none;
+}
+@media screen and (max-width: 799px) {
+	.index-kv .img-1 img.sp-only,
+	.index-kv .img-2 img.sp-only {
+		display: inline;
+	}
+	.index-kv .img-1 img.pc-only,
+	.index-kv .img-2 img.pc-only {
+		display: none;
+	}
+}
+.index-kv .img-1 {
+	width: 100%;
+	height: 50%;
+}
+.index-kv .img-2 {
+	width: 100%;
+	height: 50%;
+}
+.index-kv-inner {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.index-kv-inner:before {
+	content: "";
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: url(../images/top/index-kv-filter.png) repeat center / 2px 2px;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.index-kv-inner-2 {
+	width: 100%;
+	max-width: 1300px;
+	height: 100%;
+	position: relative;
+	margin: 0 auto;
+}
+
+.index-kv .icon_okage1000 {
+	position: absolute;
+	width: 304px;
+	height: 218px;
+	top: auto;
+	left: auto;
+	bottom: 0;
+	right: 0;
+}
+@media screen and (max-width: 799px) {
+	.index-kv .icon_okage1000 {
+		width: 224px;
+		bottom: -40px;
+		right: 20px;
+	}
+}
+.index-kv .catch {
+	position: absolute;
+	height: 320px;
+	top: 27.6%;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+@media screen and (max-width: 799px) {
+	.index-kv .catch {
+		top: 35%;
+	}
+}
+.index-kv .scroll {
+	position: absolute;
+	height: 56px;
+	bottom: 27px;
+	left: 0;
+	right: 0;
+	margin: auto;
+	margin-bottom: 0;
+}
+@media screen and (max-width: 799px) {
+	.index-kv .scroll {
+		display: none;
+	}
+}

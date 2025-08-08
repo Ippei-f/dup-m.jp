@@ -29,7 +29,7 @@ $dup_data = array(
 $dup_data['建築許可番号'] = array(
 	'宅地建物取引業免許：国土交通大臣（4）7873号',
 	'特定建設業許可：愛知県知事許可（特-4）第61271号',
-	'（公社）愛知県宅地建物取引業協会会員',
+	'（社）愛知県宅地建物取引業協会会員',
 	'東海不動産取引協議会加盟'
 );
 /*
@@ -318,7 +318,7 @@ $temp_h1=$temp_title.'、一軒家、賃貸';
 $temp_title=$temp_title.'、一戸建て';
 */
 
-$temp_java = '<script src="/js/jquery.v1.11.1.min.js" type="text/javascript"></script>
+$temp_java = '<script src="js/jquery.v1.11.1.min.js" type="text/javascript"></script>
 <script>
 $(window).load(function(){
 	
@@ -784,12 +784,11 @@ $temp_header = '<div id="header"' . $add . '>
 <li><a href="' . $link_list['物件情報'] . '">物件情報</a></li>
 <li><a href="' . $link_list['コンセプト'] . '">コンセプト</a></li>
 <li><a href="' . $link_list['特長'] . '">特長</a></li>
-<li><a href="' . $link_list['安さの秘密'] . '">安さのヒミツ</a></li>
+<li class="sp_vanish"><a href="' . $link_list['開発ストーリー'] . '">開発ストーリー</a></li>
 <li><a href="' . $link_list['お客様の声'] . '">お客様の声</a></li>
 <li class="pc_vanish"><a href="' . $link_list['開発ストーリー'] . '">開発ストーリー</a></li>
 <li><a href="' . $link_list['Q&A'] . '">Q&A</a></li>
 <li><a href="' . $link_list['コンセプト-0x'] . '">コラム</a></li>
-<li class="pc_vanish"><a href="' . $link_list['ギャラリー'] . '">ギャラリー</a></li>
 <li class="pc_vanish"><a href="' . $link_list['DUP会員登録'] . '">DUP会員登録</a></li>
 <li class="pc_vanish"><a href="' . $link_list['お問い合わせ'] . '">お問い合わせ</a></li>
 <div class="clear"></div>
@@ -817,11 +816,9 @@ function FOOTER_MENU()
 		'物件情報',
 		'コンセプト',
 		'特長',
-		'見学するには',
 		'お客様の声',
 		'開発ストーリー',
 		'Q&A',
-		''/* ,'ギャラリー' */,
 		'コンセプト-0x',
 		'DUP会員登録',
 		'お問い合わせ'
@@ -838,7 +835,7 @@ function FOOTER_MENU()
 	*/
 	$text_arr = $link_arr; //配列コピー
 	$text_arr[0] = 'ホーム'; //TOPだけホームに表記変更
-	$text_arr[10] = 'コラム';
+	$text_arr[8] = 'コラム';
 	/*
 	if($flag_header){		
 	}
@@ -887,7 +884,7 @@ $temp_footer = '<div id="footer"><div class="Wmax1000 borderbox mgnLR25">
 <div class="clear" style="height:50px; border-bottom:solid 1px rgba(255,255,255,0.5); margin-bottom:30px;"></div>
 <table border="0" cellpadding="0" cellspacing="0" class="set3"><tr>
 <td align="left"><a href="' . $link_list['東新住建本社'] . '"><img src="' . $kaisou . 'images/common/toushin-foot.png" class="toushin"></a></td>
-<td align="right"><div class="dpIB textL fontP060 sp_fontP050">〒492-8628<br>
+<td align="right"><div class="dpIB textL fontP060 sp_fontP050"><div class="name">東新住建株式会社 ＢＮ事業部</div>〒492-8628
 愛知県稲沢市高御堂1-3-18<br>
 ' . $dup_data['建築許可番号'][0] . '<br>
 ' . $dup_data['建築許可番号'][1] . '<br>

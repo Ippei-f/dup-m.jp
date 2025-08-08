@@ -1489,3 +1489,15 @@ select.bg_gray option:nth-child(2n){
 	}
 	#header{position:relative;}
 }
+
+
+/* 追加2025.08.08 */
+
+#footer .set3 .textL{
+	font-family: 'Lato', "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", 'メイリオ' , Meiryo , Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif, sans-serif;
+}
+#footer .set3 .textL .name{
+	font-size: 11px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
