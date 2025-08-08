@@ -1,0 +1,106 @@
+<?php
+//<meta charset="utf-8">
+//print_r($_SERVER);
+//「SATROI」SATORI送信（cURL）2019.02.04 *+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+
+if($_SERVER['SERVER_NAME'] == "www.localhost"){
+$c_url = 'http://localhost:88/json/index.php'; 
+}else{
+$c_url = 'https://api.satr.jp/api/v4/public/customer/upsert.json'; 
+}
+//電話・携帯判定
+if(!preg_match('/(\d{3}-\d{4}-\d{4}|\d{11})/',$_REQUEST['tel1']."-".$_REQUEST['tel2']."-".$_REQUEST['tel3'])){
+	$phone_number = $_REQUEST['tel1']."-".$_REQUEST['tel2']."-".$_REQUEST['tel3'];
+}else{
+	$mobile_phone_number = $_REQUEST['tel1']."-".$_REQUEST['tel2']."-".$_REQUEST['tel3'];
+}
+//性別変換（性を取る）男性→男、女性→女
+$_REQUEST['sex'] = str_replace("性","",$_REQUEST['sex']);
+//問い合わせ内容
+if (isset($_REQUEST['toinai']) && is_array($_REQUEST['toinai'])) {$con = implode("、", $_REQUEST['toinai']);}
+//生年月日
+if($_REQUEST['birth_date1'].$_REQUEST['birth_date2'].$_REQUEST['birth_date3'] != "--------"){
+	$Seinengappi = $_REQUEST['birth_date1']."年 ".$_REQUEST['birth_date2']."月 ".$_REQUEST['birth_date3']."日";
+}
+
+//以下メモ欄に記載
+$memo = $con.chr(10);
+//ご入居予定人数
+if($_REQUEST['ninzuu1'].$_REQUEST['ninzuu2'] != ""){
+	$memo .= "ご入居予定人数：".chr(10);
+	$memo .= "大人…".$_REQUEST['ninzuu1']."名".chr(10);
+	$memo .= "子供…".$_REQUEST['ninzuu2']."名".chr(10);
+}
+//ご希望の最寄駅
+if($_REQUEST['moyori1'].$_REQUEST['moyori2'].$_REQUEST['moyori3'] != ""){
+	$memo .= "ご希望の最寄駅：".chr(10);
+	$memo .= "第一希望…".$_REQUEST['moyori1']."駅".chr(10);
+	$memo .= "第二希望…".$_REQUEST['moyori2']."駅".chr(10);
+	$memo .= "第三希望…".$_REQUEST['moyori3']."駅".chr(10);
+}
+$memo .= $_REQUEST['other_txt'];
+
+
+//その他メモに追加するもの
+/*
+switch($p_title){
+	case 'ご見学前アンケート':
+	$memo .=chr(10).chr(10).chr(10).'【'.$p_title.' 追加分】'.chr(10).'↓'.chr(10).chr(10);
+	foreach($form_arr_name as $k => $v){
+		if(!is_numeric($k)){
+			$memo .=SEND_WORD($k);
+		}
+	}
+	break;
+}
+*/
+
+
+
+// 渡したいパラメータ
+$params = array(
+    'user_key' => '378fdb03f7456c4be842ff425707f8f9',
+    'user_secret' => 'b336e796079c1ee8ee605c1dd773769b',
+    'company_key' => '1ced76496e25c04c2615262b68e34277',
+    'company_secret' => '036ada153e6e382e8340ad2cc6427d69',
+    'customer[identity_type]' => 'email',
+    'customer[email]' => $_REQUEST['mail'],
+    'customer[collection_route]' => '['.$p_title.']'.$mt_henshin_sender,
+    'customer[collection_date]' => date("Y-m-d"),
+    'customer[last_name]' => $_REQUEST['name_k1'],
+    'customer[first_name]' => $_REQUEST['name_k2'],
+    'customer[last_name_reading]' => $_REQUEST['name_f1'],
+    'customer[first_name_reading]' => $_REQUEST['name_f2'],
+    'customer[phone_number]' => $phone_number,
+    'customer[mobile_phone_number]' => $mobile_phone_number,
+    'customer[address]' => $_REQUEST['addr'],
+    'customer[lead_company_name]' => $_REQUEST['job'],
+    'customer[memo]' => $memo,
+    'customer[delivery_permission]' => 'approval',
+    'customer[custom:Seinengappi]' => $Seinengappi,
+    'customer[custom:Bukken]' => $_REQUEST['kiboubukken'],
+    'customer[custom:Raijou]' => $_REQUEST['yoyaku_check'].(($_REQUEST['yoyaku_check']!='')?'（ご来場希望日時：'.$_REQUEST['yoyaku_date'].' '.$_REQUEST['yoyaku_time'].'）':'しない'),
+    'customer[custom:seibetsu]' => $_REQUEST['sex'],
+    'customer[custom:banchi_mansyon]' => $_REQUEST['banchi'],
+    'customer[custom:yubin]' => $_REQUEST['pos1']."-".$_REQUEST['pos2'],
+    'customer[append_tags]' => 'dup-m'
+);
+
+$curl = curl_init($c_url);
+curl_setopt($curl, CURLOPT_POST, TRUE);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($curl);
+$result = json_decode($response, true);
+
+$res = $result["status"] === 200 ? true : false;
+$curl_res = "";
+if($res === false){
+	$curl_res = "&c=".$result["message"]["customer[hashcode]"]."-00";
+	$send_naiyou = mb_convert_encoding("下記エラーによりSATORIに登録されていない可能性があります。".chr(10)."[".$result["status"]."]".$result["message"].chr(10),"JIS","utf8").$send_naiyou;
+}else{
+	$curl_res = "&c=".$result["message"]["customer[hashcode]"]."-00";
+}
+curl_close($curl);
+//「SATORI」送信終了　*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+
+?>

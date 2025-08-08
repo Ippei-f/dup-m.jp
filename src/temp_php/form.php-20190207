@@ -1,0 +1,785 @@
+<?php
+//<meta charset="utf-8">
+
+//◆メール処理分岐
+switch(true){
+	case ($_GET['send']=='complete'):
+	//送信完了
+	$step=4;
+	break;
+	case ($_REQUEST['sm_send']!=''):
+	case ($_REQUEST['sm_direct']!=''):
+	//送信・返信処理
+	
+	$base_naiyou='';
+	for($i=0;$i<count($form_arr);$i++){
+		$base_naiyou.=SEND_WORD($form_arr[$i]);
+	}
+	$base_naiyou.='
+------------------------------------------';
+	
+	$from_mail = $_REQUEST['mail'];
+
+	$send_naiyou='━━━━━━━━━━━━━━━━━━━━━
+ホームページよりお問い合わせがありました。
+━━━━━━━━━━━━━━━━━━━━━
+
+【お問い合わせ日時】
+'.date( "Y/m/d H:i:s", time() ).'
+'.$base_naiyou;
+
+	if($nai_under_add!=''){$nai_under_add=chr(10).$nai_under_add;}
+	
+	switch($p_title){
+		case 'DUP会員登録':
+		$res_temp1='この度は、'.$mt_henshin_sender.'会員登録をいただき誠にありがとうございます。
+本メールは、お客さまの'.$mt_henshin_sender.'会員登録が、下記の内容で完了しましたことをお知らせするものです。
+
+'.$mt_henshin_sender.'会員登録をしていただきますと、
+新着物件を優先的にご案内させていただいたり、会員様限定ページをご覧いただくことができます。
+会員様限定ページへのアクセスに必要なログインID及びパスワードを下記にてお知らせいたします。
+──────────
+ログインID：dup2018
+パスワード：dup2018
+──────────
+※IDとパスワードは同じになります';
+		break;
+		default:
+		$res_temp1='この度は、'.$mt_henshin_sender.'のお問い合わせをいただき誠にありがとうございます。
+本メールは、お客さまのお問い合わせの受付が、以下の内容で完了しましたことをお知らせするものです。';
+	}
+
+	$res_naiyou='━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+'.$_REQUEST['name_k1'].' '.$_REQUEST['name_k2'].'様
+'.$res_temp1.'
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+'.$base_naiyou.$nai_under_add.'
+※このメールは東新住建株式会社より自動的に配信されています。ご返信いただいてもお答えできませんのでご了承ください。';
+		
+		//文字コード変換
+		$send_naiyou = mb_convert_encoding($send_naiyou,"JIS","utf8");
+		$res_naiyou = mb_convert_encoding($res_naiyou,"JIS","utf8");
+		
+		//メール送信
+		$mail_title = mb_convert_encoding($mt_soushin,"JIS","utf8");
+		$mail_title = "=?iso-2022-jp?B?".base64_encode($mail_title). "?=";
+		for($i=0;$i<count($to_mail);$i++){
+			mail($to_mail[$i],$mail_title,$send_naiyou,'from: '.$from_mail,'-f'.$from_mail);
+		}
+		
+		//メール返信
+		$mail_title = mb_convert_encoding($mt_henshin,"JIS","utf8");
+		$mail_title = "=?iso-2022-jp?B?".base64_encode($mail_title). "?=";
+		mail($from_mail,$mail_title,$res_naiyou,'from: '.$to_mail[0],'-f'.$to_mail[0]);
+		
+		/*
+		$add='page='.$_REQUEST['thanks'];
+		if($_REQUEST['sm_direct']!=''){			
+				switch($_REQUEST['thanks']){
+					case 'residence':
+						$add.='&id='.$_GET['id'];
+						if($_GET['place']!=''){$add.='&place='.$_GET['place'];}
+					break;
+				}
+				header("Location: thanks.php?".$add);
+				exit();		
+		}
+		else{			
+		}*/
+		switch($p_type){
+			case 'info-detail':
+			header("Location: ".$now_page."&send=complete#contact");
+			break;
+			default:
+			header("Location: ".$now_page."?send=complete");
+		}			
+    exit();
+
+	break;
+	case ($_REQUEST['sm_conf']!=''):
+	//確認
+	$step=3;
+	break;
+	/*
+			エラーメッセージはJクエリでリアルタイムで表示
+	*/
+	default:
+	//入力
+	$step=1;
+}
+
+
+//◆JAVA追加
+$temp_java.='<script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+<script src="/js/jquery.validationEngine-ja.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+<script>
+$(window).load(function () {
+	
+//validationEngine設定
+$("#form").validationEngine();
+
+//必須項目初期化
+$(".required").each(function(){
+	INPUTEND($(this),"form");
+});
+$(".required").focus(function(){
+	$(this).removeClass("err_bg");
+	$(this).parent().find(".formError").remove();
+});
+//必須項目入力後処理
+$(".required").blur(function(){
+	INPUTEND($(this),"form");
+});
+
+//入力後処理関数
+function INPUTEND(obj,type){
+	if(obj.parent().find(".formError").length){
+		obj.addClass("err_bg");
+	}
+	else if(obj.val()==""){
+		obj.addClass("err_bg");
+	}
+	/*
+	else{
+		obj.removeClass("err_bg");
+	}
+	*/
+}
+
+});
+</script>'.chr(10);
+
+
+
+//◆関数
+function FORM_MAKE($cate){
+	switch($cate){
+		//----------------------------------------------------------------------------------------------------
+		case '名前漢字':
+		$str=FORM_TITLE('お名前（漢字）*').'
+<div class="floatL">
+<table border="0" cellpadding="0" cellspacing="0" class="form_set"><tr>
+<th class="bg_gray cate">姓</td>
+<td class="pad"></td>
+<td>'.FORM_TEXT('name_k1','required validate[required]').'</td>
+</tr></table>
+</div>
+<div class="floatR">
+<table border="0" cellpadding="0" cellspacing="0" class="form_set"><tr>
+<th class="bg_gray cate">名</td>
+<td class="pad"></td>
+<td>'.FORM_TEXT('name_k2','required validate[required]').'</td>
+</tr></table>
+</div>'.chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '名前フリガナ':
+		$str=FORM_TITLE('お名前（フリガナ）*').'
+<div class="floatL">
+<table border="0" cellpadding="0" cellspacing="0" class="form_set"><tr>
+<th class="bg_gray cate">セイ</td>
+<td class="pad"></td>
+<td>'.FORM_TEXT('name_f1','required validate[required]').'</td>
+</tr></table>
+</div>
+<div class="floatR">
+<table border="0" cellpadding="0" cellspacing="0" class="form_set"><tr>
+<th class="bg_gray cate">メイ</td>
+<td class="pad"></td>
+<td>'.FORM_TEXT('name_f2','required validate[required]').'</td>
+</tr></table>
+</div>'.chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '年齢性別':
+		$str='<div class="floatL">
+'.FORM_TITLE('ご年齢*').'
+'.FORM_TEXT('age','required validate[required]').'
+</div>
+<div class="floatR sp_mgn">
+'.FORM_TITLE('性別*').'
+<span class="err_block form_sex">
+'.FORM_RADIO('sex','required validate[required]','男性').FORM_RADIO('sex','required validate[required]','女性').'
+</span>
+</div>'.chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '性別生年月日':
+		
+		$arr1=$arr2=$arr3=array();
+		for($i=date("Y")-1;$i>=(date("Y")-100);$i--){$arr1[]=$i;}
+		for($i=1;$i<=12;$i++){$arr2[]=$i;}
+		for($i=1;$i<=31;$i++){$arr3[]=$i;}
+		
+		$str='<div class="floatL W30">
+'.FORM_TITLE('性別').'
+<span class="err_block form_sex">
+'.FORM_RADIO('sex',/*required validate[required]*/'','男性').FORM_RADIO('sex',/*required validate[required]*/'','女性').'
+</span>
+</div>
+<div class="floatR W70 sp_mgn">
+'.FORM_TITLE('生年月日（西暦）').'
+<span class="err_block" style="width:auto;">'.FORM_SELECT_IB('birth_date1',/*required validate[required]*/'',date("Y")-1,$arr1,'----').' 年</span><span class="err_block" style="width:auto; margin-left:1em;">'.FORM_SELECT_IB('birth_date2',/*required validate[required]*/'',1,$arr2,'--').' 月</span><span class="err_block" style="width:auto; margin-left:1em;">'.FORM_SELECT_IB('birth_date3',/*required validate[required]*/'',1,$arr3,'--').' 日</span>
+</div>'.chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '電話番号':
+		$str=FORM_TITLE('お電話番号*').'
+<table border="0" cellpadding="0" cellspacing="0" class="form_set"><tr>
+<td style="width:25%;">'.FORM_TEXT('tel1','required validate[required,custom[number],maxSize[4]]').'</td>
+<td>－</td>
+<td style="width:25%;">'.FORM_TEXT('tel2','required validate[required,custom[number],maxSize[4]]').'</td>
+<td>－</td>
+<td style="width:38%;">'.FORM_TEXT('tel3','required validate[required,custom[number],maxSize[4]]').'</td>
+</tr></table>'.chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '郵便番号':
+		$str=FORM_TITLE('郵便番号*').'
+<table border="0" cellpadding="0" cellspacing="0" class="form_set"><tr>
+<td style="width:25%;">'.FORM_TEXT('pos1','required validate[required,custom[number],maxSize[3]]').'</td>
+<td>－</td>
+<td style="width:25%;">'.FORM_TEXT('pos2','required validate[required,custom[number],maxSize[4]]').'</td>
+<td style="min-width:1em;">　</td>
+<td style="width:38%; text-align:left;"><input type="button" name="" value="自動住所入力" onclick="AjaxZip3.zip2addr(\'pos1\',\'pos2\',\'addr\',\'addr\');" style="font-size:80%; line-height:120%;"></td>
+</tr></table>'.chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '住所':
+		$str=FORM_TITLE('ご住所*').'
+'.FORM_TEXT('addr','required validate[required]').chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '番地・マンション名':
+		$str=FORM_TITLE('番地・マンション名*').'
+'.FORM_TEXT('banchi','required validate[required]').chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'メール':
+		$str=FORM_TITLE('メールアドレス*').'
+'.FORM_TEXT('mail','required validate[required,custom[email]]').chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'ご職業':
+		$str=FORM_TITLE('ご職業').'
+'.FORM_TEXT('job','').chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'お問い合わせ内容':
+		if (isset($_POST['toinai']) && is_array($_POST['toinai'])) {$arr = $_POST['toinai'];}
+		else{$arr=array('');}		
+		$str=FORM_TITLE('お問い合わせ内容*').'
+<span class="err_block list">
+'.FORM_CHECK('toinai','required validate[minCheckbox[1]]','詳しい話が聞きたい',$arr).'
+'.FORM_CHECK('toinai','required validate[minCheckbox[1]]','資料が欲しい',$arr).'
+'.FORM_CHECK('toinai','required validate[minCheckbox[1]]','事前審査をする',$arr).'
+</span>'.chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'その他':
+		$str=FORM_TITLE('その他ご要望等').'
+<textarea name="other_txt" id="other_txt" rows="5" class="bg_gray W100per" >'.$_REQUEST['other_txt'].'</textarea>'.chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'ご入居予定人数':
+		$str=FORM_TITLE('ご入居予定人数').'
+<table border="0" cellpadding="0" cellspacing="0" class="form_set W50"><tbody><tr>
+<th class="cate" style="text-align:left;">大人</th><td class="pad"></td>
+<td>'.FORM_TEXT('ninzuu1',/*required validate[required,custom[number]]*/' W100per textR').'</td>
+<td style="width:2em;">名</td>
+<td style="width:1em;"></td>
+<th class="cate" style="text-align:left;">子供</th><td class="pad"></td>
+<td>'.FORM_TEXT('ninzuu2',/*required validate[required,custom[number]]*/' W100per textR').'</td>
+<td style="width:2em;">名</td>
+</tr></tbody></table>
+<div class="clear" style="height:10px;"></div>'.chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'ご希望物件名':
+		$str=FORM_TITLE('ご希望物件名').'
+'.FORM_TEXT('kiboubukken','').chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'ご希望の最寄駅':
+		$str=FORM_TITLE('ご希望の最寄駅* <span class="fontP080">※第一希望のみ必須</span>').'
+<table border="0" cellpadding="0" cellspacing="0" class="form_set"><tbody><tr>
+<th class="cate" style="width:4.25em; text-align:left;">第一希望</th><td class="pad"></td>
+<td>'.FORM_TEXT('moyori1','required validate[required] W100per').'</td>
+<td style="width:2em;">駅</td>
+</tr></tbody></table>
+<div class="clear" style="height:10px;"></div>
+<table border="0" cellpadding="0" cellspacing="0" class="form_set"><tbody><tr>
+<th class="cate" style="width:4.25em; text-align:left;">第二希望</th><td class="pad"></td>
+<td>'.FORM_TEXT('moyori2','W100per').'</td>
+<td style="width:2em;">駅</td>
+</tr></tbody></table>
+<div class="clear" style="height:10px;"></div>
+<table border="0" cellpadding="0" cellspacing="0" class="form_set"><tbody><tr>
+<th class="cate" style="width:4.25em; text-align:left;">第三希望</th><td class="pad"></td>
+<td>'.FORM_TEXT('moyori3','W100per').'</td>
+<td style="width:2em;">駅</td>
+</tr></tbody></table>'.chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '現地ご来場予約':
+		//現在の日付取得
+		$y = date("Y");//年
+		$m = date("m");//月
+		//来月
+		if($m>=12){
+			$ay=$y+1;
+			$am=1;
+		}
+		else{
+			$ay=$y;
+			$am=$m+1;
+		}
+		
+		if($_REQUEST['yoyaku_check']==''){$checked='';$add=' display:none;';}
+		else{$checked='checked';$add='';}
+		if($_REQUEST['yoyaku_date']==''){$_REQUEST['yoyaku_date']='ご希望日を入力してください';}
+		
+		
+		$str=FORM_TITLE('現地ご来場予約').'
+<script>
+function YOYAKU_OPEN(){
+	if($("#yoyaku_check").prop("checked")){$(".yoyaku_set").slideDown();}
+	else{$(".yoyaku_set").slideUp();}
+}
+function CALENDAR_OPEN(){
+	$(".yoyaku_calendar").slideToggle();
+}
+</script>
+<span class="pad"><input name="yoyaku_check" id="yoyaku_check" type="checkbox" '.$checked.' class="form_check" value="予約する" onclick="YOYAKU_OPEN();">
+予約する</span>
+<div class="yoyaku_set" style="padding-top:1em; padding-bottom:30px;'.$add.'">
+<div class="LH125">※ご来場希望日時の24時間前までにご予約ください<br>
+<span class="fontP070">（例：10月24日の14:00ご来場希望の場合、10月23日の14:00までにご予約完了してください）</span></div>
+<div class="clear" style="height:10px;"></div>
+<table border="0" cellpadding="0" cellspacing="0" class="form_set"><tr>
+<td style="width:73%;">'.FORM_TEXT('yoyaku_date','').'</td>
+<td style="min-width:1em;">　</td>
+<td style="text-align:left;"><input type="button" name="" value="カレンダー表示" onclick="CALENDAR_OPEN();" style="font-size:80%; line-height:120%;"></td>
+</tr></table>
+<div class="yoyaku_calendar" style="display:none;">
+<div class="clear" style="height:30px;"></div>
+<script>
+$(window).load(function(){
+	$(".calendar_tbl td.nowmonth").click(function(){
+		if($(this).text()!=""){
+			$("#yoyaku_date").val($(this).parent().parent().find(".date_ym").text()+$(this).text()+"日");
+		}
+  });
+});
+</script>
+'.CALENDER_MAKE($y,$m).'
+'.CALENDER_MAKE($ay,$am).'
+<div class="clear"></div>
+</div>
+<div class="clear" style="height:30px;"></div>
+'.FORM_SELECT('yoyaku_time','W100per','',array
+('ご希望時間を選択してください'
+,'10:00'
+,'11:00'
+,'12:00'
+,'13:00'
+,'14:00'
+,'15:00'
+,'16:00'
+,'17:00'
+,'18:00'
+//,''
+)).'
+</div>
+'.chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		/*
+		case '':
+		$str=''.chr(10);
+		break;
+		*/
+	}
+	return $str;
+}
+
+function FORM_CONFIRMATION($cate){
+	switch($cate){
+		//----------------------------------------------------------------------------------------------------
+		case '名前漢字':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">お名前（漢字）</th>
+<td>'.$_REQUEST['name_k1'].'　'.$_REQUEST['name_k2'].'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('name_k1','name_k2')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '名前フリガナ':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">お名前（フリガナ）</th>
+<td>'.$_REQUEST['name_f1'].'　'.$_REQUEST['name_f2'].'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('name_f1','name_f2')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '年齢性別':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">ご年齢</th>
+<td>'.$_REQUEST['age'].'</td>
+</tr></table>
+<div class="clear" style="height:30px;"></div>
+<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">性別</th>
+<td>'.$_REQUEST['sex'].'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('age','sex')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '性別生年月日':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">性別</th>
+<td>'.$_REQUEST['sex'].'</td>
+</tr></table>
+<div class="clear" style="height:30px;"></div>
+<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">生年月日（西暦）</th>
+<td>'.$_REQUEST['birth_date1'].'年 '.$_REQUEST['birth_date2'].'月 '.$_REQUEST['birth_date3'].'日</td>
+</tr></table>
+'.INPUT_HIDDEN(array('sex','birth_date1','birth_date2','birth_date3')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '電話番号':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">お電話番号</th>
+<td>'.$_REQUEST['tel1'].'-'.$_REQUEST['tel2'].'-'.$_REQUEST['tel3'].'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('tel1','tel2','tel3')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '郵便番号':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">郵便番号</th>
+<td>'.$_REQUEST['pos1'].'-'.$_REQUEST['pos2'].'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('pos1','pos2')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '住所':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">ご住所</th>
+<td>'.$_REQUEST['addr'].'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('addr')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '番地・マンション名':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">番地・マンション名</th>
+<td>'.$_REQUEST['banchi'].'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('banchi')).chr(10);//確認画面ではまだ住所と統合しない。
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'メール':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">メールアドレス</th>
+<td>'.$_REQUEST['mail'].'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('mail')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'ご職業':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">ご職業</th>
+<td>'.$_REQUEST['job'].'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('job')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'お問い合わせ内容':
+		if (isset($_REQUEST['toinai']) && is_array($_REQUEST['toinai'])) {$con = implode("、", $_POST['toinai']);}
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">お問い合わせ内容</th>
+<td>'.$con.'</td>
+</tr></table>
+'.INPUT_HIDDEN_MULTIPLE('toinai').chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'その他':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">その他ご要望等</th>
+<td>'.$_REQUEST['other_txt'].'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('other_txt')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'ご入居予定人数':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th rowspan="2" class="bg_green">ご入居予定人数</th>
+<td>大人　'.$_REQUEST['ninzuu1'].'名</td>
+</tr><tr>
+<td>子供　'.$_REQUEST['ninzuu2'].'名</td>
+</tr></table>
+'.INPUT_HIDDEN(array('ninzuu1','ninzuu2')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'ご希望物件名':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">ご希望物件名</th>
+<td>'.$_REQUEST['kiboubukken'].'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('kiboubukken')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case 'ご希望の最寄駅':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th rowspan="3" class="bg_green">ご希望の最寄駅</th>
+<td>第一希望　'.$_REQUEST['moyori1'].'駅</td>
+</tr><tr>
+<td>第二希望　'.$_REQUEST['moyori2'].'駅</td>
+</tr><tr>
+<td>第三希望　'.$_REQUEST['moyori3'].'駅</td>
+</tr></table>
+'.INPUT_HIDDEN(array('moyori1','moyori2','moyori3')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		case '現地ご来場予約':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">現地ご来場予約</th>
+<td>'.$_REQUEST['yoyaku_check'].(($_REQUEST['yoyaku_check']!='')?'（ご来場希望日時：'.$_REQUEST['yoyaku_date'].' '.$_REQUEST['yoyaku_time'].'）':'しない').'</td>
+</tr></table>
+'.INPUT_HIDDEN(array('yoyaku_check','yoyaku_date','yoyaku_time')).chr(10);
+		break;
+		//----------------------------------------------------------------------------------------------------
+		/*
+		case '':
+		$str='<table border="0" cellpadding="0" cellspacing="0" class="form_conf"><tr>
+<th class="bg_green">***</th>
+<td>***</td>
+</tr></table>
+'.INPUT_HIDDEN(array('***','***','***')).chr(10);
+		break;
+		*/
+	}
+	return $str;
+}
+function INPUT_HIDDEN($name){
+	$str='';
+	for($i=0;$i<count($name);$i++){
+		$str.='<input type="hidden" name="'.$name[$i].'" id="'.$name[$i].'" value="'.$_REQUEST[$name[$i]].'">'.chr(10);
+	}
+	return $str;
+}
+function INPUT_HIDDEN_MULTIPLE($name){
+	$str='';
+	for($i=0;$i<count($_REQUEST[$name]);$i++){
+		$str.='<input type="hidden" name="'.$name.'[]" id="'.$name.$i.'" value="'.$_REQUEST[$name][$i].'">'.chr(10);
+	}
+	return $str;
+}
+function SEND_WORD($cate){
+	switch($cate){
+		case '名前漢字':
+		$str=chr(10)."●お名前（漢字）：".$_REQUEST['name_k1']."　".$_REQUEST['name_k2'].chr(10);
+		break;
+		case '名前フリガナ':
+		$str=chr(10)."●お名前（フリガナ）：".$_REQUEST['name_f1']."　".$_REQUEST['name_f2'].chr(10);
+		break;
+		case '年齢性別':
+		$str=chr(10)."●ご年齢：".$_REQUEST['age']."
+
+●性別：".$_REQUEST['sex'].chr(10);
+		break;
+		case '性別生年月日':
+		$str=chr(10)."●性別：".$_REQUEST['sex']."
+		
+●生年月日（西暦）：".$_REQUEST['birth_date1']."年 ".$_REQUEST['birth_date2']."月 ".$_REQUEST['birth_date3']."日".chr(10);
+		break;
+		case '電話番号':
+		$str=chr(10)."●お電話番号：".$_REQUEST['tel1']."-".$_REQUEST['tel2']."-".$_REQUEST['tel3'].chr(10);
+		break;
+		case '郵便番号':
+		$str=chr(10)."●郵便番号：".$_REQUEST['pos1']."-".$_REQUEST['pos2'].chr(10);
+		break;
+		case '住所':
+		$str=chr(10)."●ご住所：".$_REQUEST['addr'].$_REQUEST['banchi'].chr(10);//メールでは番地と統合する。
+		break;
+		/*
+		case '番地・マンション名':
+		$str=chr(10)."●番地・マンション名：".$_REQUEST['banchi'].chr(10);
+		break;
+		*/
+		case 'メール':
+		$str=chr(10)."●メールアドレス：".$_REQUEST['mail'].chr(10);
+		break;
+		case 'ご職業':
+		$str=chr(10)."●ご職業：".$_REQUEST['job'].chr(10);
+		break;
+		case 'お問い合わせ内容':
+		if (isset($_POST['toinai']) && is_array($_POST['toinai'])) {$con = implode("、", $_POST['toinai']);}
+		$str=chr(10)."●お問い合わせ内容：".$con.chr(10);
+		break;
+		case 'その他':
+		$str=chr(10)."●その他ご要望等：".$_REQUEST['other_txt'].chr(10);
+		break;
+		case 'ご入居予定人数':
+		$str=chr(10)."●ご入居予定人数：
+　大人…".$_REQUEST['ninzuu1']."名
+　子供…".$_REQUEST['ninzuu2']."名".chr(10);
+		break;
+		case 'ご希望物件名':
+		$str=chr(10)."●ご希望物件名：".$_REQUEST['kiboubukken'].chr(10);
+		break;
+		case 'ご希望の最寄駅':
+		$str=chr(10)."●ご希望の最寄駅：
+　第一希望…".$_REQUEST['moyori1']."駅
+　第二希望…".$_REQUEST['moyori2']."駅
+　第三希望…".$_REQUEST['moyori3']."駅".chr(10);
+		break;
+		case '現地ご来場予約':
+		$str=chr(10)."●現地ご来場予約：";
+		if($_REQUEST['yoyaku_check']!=''){
+			$str.="する
+　ご希望日……".$_REQUEST['yoyaku_date']."
+　ご希望時間…".$_REQUEST['yoyaku_time'].chr(10);
+		}
+		else{$str.="しない".chr(10);}
+		break;
+		/*
+		case '':
+		$str=chr(10)."".chr(10);
+		break;
+		*/
+	}
+	return $str;
+}
+
+function FORM_TEXT($name,$class){
+	return '<span class="err_block"><input name="'.$name.'" id="'.$name.'" type="text" class="bg_gray '.$class.'" value="'.$_REQUEST[$name].'"></span>';
+}
+function FORM_RADIO($name,$class,$val){
+	if($_REQUEST[$name]==$val){$add='checked';}
+	else{$add='';}
+	return '<span class="pad"><input name="'.$name.'" id="'.$name.'" type="radio" class="form_check '.$class.'" value="'.$val.'" '.$add.'>
+'.$val.'</span>';
+}
+function FORM_CHECK($name,$class,$val,$arr){
+	/*
+	if (isset($_POST[$name]) && is_array($_POST[$name])) {
+		$arr = $_POST[$name];
+	}
+	else{$arr=array('');}
+	*/
+	if(array_search($val,$arr)!==false){$add='checked';}
+	else{$add='';}
+	return '<span class="pad"><input name="'.$name.'[]" id="'.$name.'" type="checkbox" class="form_check '.$class.'" value="'.$val.'" '.$add.'>
+'.$val.'</span>';
+}
+function FORM_SELECT($name,$class,$first,$arr){
+	$str='<span class="err_block"><select name="'.$name.'" id="'.$name.'" class="bg_gray '.$class.'">
+<option value="'.$first.'">'.$arr[0].'</option>'.chr(10);
+	for($i=1;$i<count($arr);$i++){
+		if($_REQUEST[$name]==$arr[$i]){$add=' selected';}
+		else{$add='';}
+		$str.='<option'.$add.'>'.$arr[$i].'</option>'.chr(10);
+	}
+	$str.='</select></span>'.chr(10);
+	return $str;
+}
+function FORM_SELECT_IB($name,$class,$first,$arr,$default=''){
+	$str='<select name="'.$name.'" id="'.$name.'" class="bg_gray '.$class.'">
+	'.(($default!='')?'<option selected>'.$default.'</option>':'').'
+<option value="'.$first.'">'.$arr[0].'</option>'.chr(10);
+	for($i=1;$i<count($arr);$i++){
+		if(($_REQUEST[$name]==$arr[$i])&&($default=='')){$add=' selected';}
+		else{$add='';}
+		$str.='<option'.$add.'>'.$arr[$i].'</option>'.chr(10);
+	}
+	$str.='</select>'.chr(10);
+	return $str;
+}
+function FORM_TITLE($title){
+	$title=str_replace(array('*','＊'),'<font color="#e30012"><b>＊</b></font>',$title);
+	return '<div class="fontP087 mgnB0_5em form_cate">'.$title.'</div>';
+}
+
+function CALENDER_MAKE($y,$m){
+	
+//先月
+if($m<=1){
+	$by=$y-1;
+	$bm=12;
+}
+else{
+	$by=$y;
+	$bm=$m-1;
+}
+//来月
+if($m>=12){
+	$ay=$y+1;
+	$am=1;
+}
+else{
+	$ay=$y;
+	$am=$m+1;
+}
+
+$stt=$y.'/'.$m.'/1';
+$fw=date('w',strtotime($stt));//月初の曜日取得
+$stt=$y.'-'.$m;
+$ld=date('t',strtotime($stt));//月末日取得
+$bmld=date('t',strtotime($by.'-'.$bm));
+
+$d_list=array();
+$d_list[0]=array();//日付
+$d_list[1]=array();//monthtype
+
+	//今月分の日付を埋める
+	for($i=0;$i<$ld;$i++){
+		$d_list[$i+$fw][0]=($i+1);
+		$d_list[$i+$fw][1]='nowmonth';
+	}
+	if($fw>0){
+		//最初の曜日が日曜日でなければ先月の日を埋める。
+		for($i=-1;($i+$fw)>-1;$i--){
+			$d_list[$i+$fw][0]=$bmld+($i+1);
+			$d_list[$i+$fw][1]='befmonth';
+		}
+	}
+	if(($ld-1+$fw)%7<6){
+		//月末の曜日が土曜日でなければ次月の日を埋める。
+		for($i=0;($i+$ld+$fw)%7>0;$i++){
+			$d_list[$i+$ld+$fw][0]=($i+1);
+			$d_list[$i+$ld+$fw][1]='aftmonth';
+		}
+	}
+	
+	//来月のカレンダーの配置
+	if($m!=date("m")){$add=' next_month';}
+	else{$add='';}
+	
+	//テーブル作成
+	$str='<table class="calendar_tbl'.$add.'">
+<tr><th class="date_ym" colspan="7">'.$y.'年'.$m.'月</th></tr>
+<tr>
+  <th>日</th>
+  <th>月</th>
+  <th>火</th>
+  <th>水</th>
+  <th>木</th>
+  <th>金</th>
+  <th>土</th>
+</tr>'.chr(10);
+for($i=0;$i<count($d_list);$i++){
+	//日曜日判定
+	if(($i%7)==0){$str.='<tr>'.chr(10);	}	
+	$str.='<td class="'.$d_list[$i][1].'">'.$d_list[$i][0].'</td>'.chr(10);
+	if(($i%7)==6){$str.='</tr>'.chr(10);}
+}
+$str.='</table>'.chr(10);
+	
+	return $str;
+}
+
+?>
