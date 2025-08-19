@@ -514,7 +514,10 @@
 @media screen and (max-width: 799px) {
 	.index-kv .img-1 img.sp-only,
 	.index-kv .img-2 img.sp-only {
-		display: inline;
+		display: block;
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
 	}
 	.index-kv .img-1 img.pc-only,
 	.index-kv .img-2 img.pc-only {
@@ -528,6 +531,17 @@
 .index-kv .img-2 {
 	width: 100%;
 	height: 50%;
+}
+@media screen and (max-width: 799px) {
+	.index-kv__list .slick-list,
+	.index-kv__list .slick-track,
+	.index-kv__list .slick-slide,
+	.index-kv__list .slick-slide div,
+	.index-kv .img-1,
+	.index-kv .img-2 {
+		height: 100%;
+		display: block !important;
+	}
 }
 .index-kv-inner {
 	width: 100%;

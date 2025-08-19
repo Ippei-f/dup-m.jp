@@ -409,8 +409,7 @@ echo 'カテゴリ:'.$sysdata['category'].'<br>';
 					arrows: false,
 					autoplay: true,
 					fade: true,
-					autoplaySpeed: 5000,
-					speed: 600,
+					speed: 1000,
 				});
 			} else {
 				// PC向け
