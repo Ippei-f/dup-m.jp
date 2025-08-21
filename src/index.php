@@ -28,7 +28,7 @@ require $kaisou . "temp_php/basic.php";
 		<div class="index-kv">
 			<div class="index-kv__list">
 				<div class="img-1">
-					<img class="rellax pc-only" data-rellax-speed="1.5" src="images/top/index-kv-img-1.jpg" alt="" />
+					<img class="rellax pc-only" data-rellax-speed="2.5" src="images/top/index-kv-img-1.jpg" alt="" />
 					<img class="sp-only" data-rellax-speed="1.5" src="images/top/sp/index-kv-img-1.jpg" alt="" />
 				</div>
 				<div class="img-2">
@@ -39,6 +39,7 @@ require $kaisou . "temp_php/basic.php";
 			<div class="index-kv-inner">
 				<div class="index-kv-inner-2">
 					<img src="images/top/movie-catch.png" class="catch" />
+					<img src="images/top/sp/movie-catch.png" class="catch-sp" />
 					<img src="images/top/movie-scroll.png" class="scroll" />
 					<div class="icon_okage1000">
 						<div></div>
