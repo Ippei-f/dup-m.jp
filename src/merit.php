@@ -291,6 +291,25 @@ require $kaisou . "temp_php/basic.php";
 		.meritbox1 .merit-3 .floatR_pc .img {
 			margin-bottom: 8px;
 		}
+
+		@media screen and (max-width: 799px) {
+			.meritbox1 .merit-3 .floatL_pc .svg img {
+				width: 100%;
+				height: auto;
+			}
+		}
+
+		@media screen and (max-width: 799px) {
+			.bg_cover-1 {
+				height: 100vw !important;
+				background-position: left -37vw top !important;
+			}
+
+			.bg_cover-2 {
+				height: 100vw !important;
+				background-position: left -118vw top !important;
+			}
+		}
 	</style>
 </head>
 
@@ -460,7 +479,7 @@ MERIT1_BOX($cnt++
 		<div class="merit_subtitle"><?php
 									echo PAGE_TITLE('', 'FINANCE', '[ 経済的メリット ]', 'h3');
 									?></div>
-		<div class="bg_cover" style="height:650px; background-image:url(images/content/merit/photo-3-0.jpg); background-position:center top;"></div>
+		<div class="bg_cover bg_cover-1" style="height:650px; background-image:url(images/content/merit/photo-3-0.jpg); background-position:center top;"></div>
 		<div class=" mgnLR50 mgnLR20_sp">
 			<div class="merit_catch">
 				よりリーズナブルに。<br>
@@ -505,7 +524,7 @@ MERIT1_BOX($cnt++
 		<div class="merit_subtitle"><?php
 									echo PAGE_TITLE('', 'LOCATION', '[ 立地 ]', 'h3');
 									?></div>
-		<div class="bg_cover" style="height:650px; background-image:url(images/content/merit/photo-2-0.jpg); background-position:center top;"></div>
+		<div class="bg_cover bg_cover-2" style="height:650px; background-image:url(images/content/merit/photo-2-0.jpg); background-position:center top;"></div>
 		<div class=" mgnLR50 mgnLR20_sp">
 			<div class="merit_catch">
 				『名駅まで30分プロジェクト』<br>
@@ -565,8 +584,8 @@ echo SPAN_IB('利便性の高いエリアは、
 		<div class="textC" style="margin-top:20px; margin-bottom:70px;">
 			<?php echo BTN_OVAL('物件情報', '物件一覧を見る', 'width:13em;'); ?></div>
 		<!-- *** -->
-		<div class="bg_cover pos_rel history_box borderbox" style="background-image:url(images/content/merit/bg-history.jpg);">
-			<div class="bg_cover history_title"><img src="images/content/merit/clear-history.png" style="background-image:url(images/content/merit/logo-history.png); mix-blend-mode:overlay;">
+		<div class="bg_cover bg_cover-3 pos_rel history_box borderbox" style="background-image:url(images/content/merit/bg-history.jpg);">
+			<div class="bg_cover bg_cover-4 history_title"><img src="images/content/merit/clear-history.png" style="background-image:url(images/content/merit/logo-history.png); mix-blend-mode:overlay;">
 				<h3>デュープレジデンスの起源</h3>
 			</div>
 			<div class="history_text">
