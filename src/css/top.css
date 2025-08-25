@@ -496,11 +496,13 @@
 
 .index-kv {
 	position: relative;
-	height: 100vh;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 2600 / 2000;
 }
 @media screen and (max-width: 799px) {
 	.index-kv {
-		height: auto;
+		aspect-ratio: auto;
 	}
 }
 
