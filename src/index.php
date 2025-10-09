@@ -103,7 +103,11 @@ require $kaisou . "temp_php/basic.php";
 				?>
 			</div>
 
-
+			<div class="top_bnr_campaign">
+				<a href="https://www.toshinjyuken.co.jp/kodate/news.php?id=185" target="_blank">
+					<img src="images/top/bnr-sumaihaku-2025.JPG" alt="秋の住まい博2025" />
+				</a>
+			</div>
 
 			<div class="top_news">
 				<div class="box">

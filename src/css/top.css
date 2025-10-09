@@ -469,25 +469,25 @@
 
 /* 追加2025.08.04 */
 
-.top_bnr_50th {
+.top_bnr_campaign {
 	margin-bottom: 60px;
 }
-.top_bnr_50th a {
+.top_bnr_campaign a {
 	display: inline-block;
 	border: 1px solid #343c62;
 }
-.top_bnr_50th a img {
+.top_bnr_campaign a img {
 	width: 441px;
 }
 
 @media screen and (max-width: 999px) {
-	.top_bnr_50th {
+	.top_bnr_campaign {
 		padding: 0px 1em 0;
 	}
-	.top_bnr_50th a {
+	.top_bnr_campaign a {
 		display: block;
 	}
-	.top_bnr_50th a img {
+	.top_bnr_campaign a img {
 		width: 100%;
 	}
 }
