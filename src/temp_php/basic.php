@@ -93,7 +93,8 @@ $link_list = array(
 	'安さの秘密'						=> $kaisou . 'yasusa.php'
 	//-----
 	,
-	'DUP会員登録'				=> $kaisou . 'member.php',
+	//'DUP会員登録'				=> $kaisou . 'member.php',
+	'DUP会員登録' => 'https://www.toshinjyuken.co.jp/kodate/member.php' . $t_blank,
 	'お問い合わせ'				=> $url = 'https://www.toshinjyuken.co.jp/kodate/contact.php' . $t_blank //2025/07/24変更
 	//,'お問い合わせ'				=>$url=($kaisou.'contact.php')
 	,
@@ -903,12 +904,12 @@ switch ($p_title) {
 		break;
 	default:
 		$arr = array(
-			'hatsuden.jpg'	=> 'https://www.toshinjyuken.co.jp/hatsuden-shelter-house/',
-			'hiraya.jpg'		=> 'https://www.toshinjyuken.co.jp/hiraya/',
-			'teishaku.jpg'	=> 'https://www.toshinjyuken.co.jp/teishaku-portal/',
-			'sodatsu.jpg'	=> 'https://www.toshinjyuken.co.jp/sodatsu/',
+			//'hatsuden.jpg'	=> 'https://www.toshinjyuken.co.jp/hatsuden-shelter-house/',
+			//'hiraya.jpg'		=> 'https://www.toshinjyuken.co.jp/hiraya/',
+			//'teishaku.jpg'	=> 'https://www.toshinjyuken.co.jp/teishaku-portal/',
+			//'sodatsu.jpg'	=> 'https://www.toshinjyuken.co.jp/sodatsu/',
 			'ie.jpg'				=> 'https://www.toshinjyuken.co.jp/kodate/',
-			'alc.jpg'			=> 'https://www.toshinjyuken.co.jp/new-concrete-log-house/'
+			//'alc.jpg'			=> 'https://www.toshinjyuken.co.jp/new-concrete-log-house/'
 		);
 		$bnr = '';
 		foreach ($arr as $k => $v) {
